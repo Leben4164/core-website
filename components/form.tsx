@@ -2,24 +2,28 @@
 
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
+import { useRouter } from "next/navigation";
 
 
-export default function Form() {
-  const [studentId, setStudentId] = useState("")
-  const [studentName, setStudentName] = useState("")
-  const [motiv, setMotiv] = useState("")
-  const [wantToDo, setWantToDo] = useState("")
-  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_KEY!)
+export default function Form() { //지원서 페이지
+  const [studentId, setStudentId] = useState("") //학번
+  const [studentName, setStudentName] = useState("") //이름
+  const [motiv, setMotiv] = useState("") //지원 동기
+  const [wantToDo, setWantToDo] = useState("") //하고 싶은 일
+  const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_KEY!) //DB연결
+  let router = useRouter() //페이지 이동
 
 
-  async function onSubmit() {
+  async function onSubmit() { //제출하기 눌렀을 때 실행
     console.log(studentId, studentName, motiv, wantToDo)
-    const { error } = await supabase.from('applications').insert({
+    const { error } = await supabase.from('applications').insert({ //인풋에 입력한 정보를 DB에 삽입
       student_id: studentId,
       student_name: studentName,
       motiv: motiv,
       want_to_do: wantToDo,
     })
+    alert('제출되었습니다.')
+    router.replace('/') //메인 페이지로 이동
   }
 
   useEffect(() => {
@@ -45,23 +49,27 @@ export default function Form() {
           type="text"
           placeholder="학번"
           value={studentId}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setStudentId(event.target.value) }} />
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setStudentId(event.target.value) }}
+        />
         <label>이름</label>
         <input
           type="text"
           placeholder="이름"
           value={studentName}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setStudentName(event.target.value) }} />
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setStudentName(event.target.value) }}
+        />
         <label>지원 동기</label>
         <textarea
           placeholder="지원하게된 동기를 적어주세요."
           value={motiv}
-          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => { setMotiv(event.target.value) }}></textarea>
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => { setMotiv(event.target.value) }}
+        ></textarea>
         <label>하고싶은 활동</label>
         <textarea
           placeholder="만약 합격해서 동아리에 들어오게 된다면 가장 하고싶을 활동을 적어주세요."
           value={wantToDo}
-          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => { setWantToDo(event.target.value) }}></textarea>
+          onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => { setWantToDo(event.target.value) }}
+        ></textarea>
       </fieldset>
 
       <button onClick={onSubmit}>제출하기</button>
@@ -71,12 +79,11 @@ export default function Form() {
 }
 
 const styles = `
+  textarea {
+    height: 100px;
+  }
 
-textarea {
-  height: 100px;
-}
-
-#form {
+  #form {
     background-color: #222; /* 배경과 구분되는 어두운 회색 */
     padding: 20px;
     border-radius: 15px;
@@ -84,30 +91,28 @@ textarea {
     color: #7fffd4;
     width: 500px;
     text-align: center;
-}
+  }
 
-fieldset {
+  fieldset {
     border: 2px solid #7fffd4;
     border-radius: 10px;
-    padding: 15px;
-    
-    
-}
+    padding: 15px;  
+  }
 
-legend {
+  legend {
     color: #7fffd4;
     font-weight: bold;
     text-align: center;
     width: 100%;
-}
+  }
 
-label {
+  label {
     display: block;
     margin-top: 10px;
     font-weight: bold;
-}
+  }
 
-input, textarea {
+  input, textarea {
     width: calc(100% - 10px);
     padding: 8px;
     margin-top: 5px;
@@ -115,9 +120,9 @@ input, textarea {
     border-radius: 5px;
     background-color: #333;
     color: white;
-}
+  }
 
-button {
+  button {
     background-color: #222;
     border: none;
     padding: 10px;
@@ -129,11 +134,11 @@ button {
     cursor: pointer;
     transition: 0.3s;
     color: #7fffd4;
-}
+  }
 
-button:hover {
+  button:hover {
     background-color: #5fcfa1;
     color: #222;
-}
+  }
 
   `
