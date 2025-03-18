@@ -1,19 +1,10 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-export const metadata: Metadata = {
-  title: "코어 - 완산고 코딩 동아리",
+export const metadata = {
+  title: {
+    template: "%s | Core"
+  },
   description: "Developed by Leben",
 };
 
@@ -23,8 +14,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html>
+      <body>
+        <header style={{ padding: '10px', marginLeft: '40px', marginRight: '40px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Link href={'/'}>
+              <img src="/favicon.ico" width={'40px'} height={'40px'} />
+            </Link>
+            <nav style={{ display: 'flex', color: '#7fffd4', fontWeight: 'bold' }}>
+              <Link href={'/recruit'}>지원하기</Link>
+              <p>　</p>
+              <Link href={'/check'}>결과확인</Link>
+            </nav>
+          </div>
+
+        </header>
         {children}
       </body>
     </html>
