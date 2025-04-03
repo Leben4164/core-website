@@ -21,10 +21,10 @@ export default function RootLayout({
             <Link href={'/'}>
               <img src="/favicon.ico" width={'40px'} height={'40px'} />
             </Link>
-            <nav style={{ display: 'flex', color: '#7fffd4', fontWeight: 'bold' }}>
-              <Link href={'/recruit'}>지원하기</Link>
+            <nav style={{ display: 'flex', color: 'white' }}>
+              <Link className="link" href={'/recruit'}>지원하기</Link>
               <p>　</p>
-              <Link href={'/check'}>결과확인</Link>
+              <Link className="link" href={'/check'}>결과확인</Link>
             </nav>
           </div>
 

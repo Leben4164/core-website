@@ -40,3 +40,8 @@ a {
     color-scheme: dark;
   }
 }
+
+a:hover {
+  color: #7fffd4;
+  font-weight: bold;
+}

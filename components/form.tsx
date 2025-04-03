@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 
@@ -14,8 +14,9 @@ export default function Form() { //지원서 페이지
   let router = useRouter() //페이지 이동
 
 
-  async function onSubmit() { //제출하기 눌렀을 때 실행
+  async function onSubmit(event: MouseEvent<HTMLButtonElement>) { //제출하기 눌렀을 때 실행
     console.log(studentId, studentName, motiv, wantToDo)
+    event.currentTarget.disabled = true
     const { error } = await supabase.from('applications').insert({ //인풋에 입력한 정보를 DB에 삽입
       student_id: studentId,
       student_name: studentName,
@@ -24,6 +25,7 @@ export default function Form() { //지원서 페이지
     })
     alert('제출되었습니다.')
     router.replace('/') //메인 페이지로 이동
+
   }
 
   useEffect(() => {
@@ -72,7 +74,7 @@ export default function Form() { //지원서 페이지
         ></textarea>
       </fieldset>
 
-      <button onClick={onSubmit}>제출하기</button>
+      <button onClick={(e) => { onSubmit(e) }}>제출하기</button>
 
     </div>
   )
@@ -139,6 +141,11 @@ const styles = `
   button:hover {
     background-color: #5fcfa1;
     color: #222;
+  }
+
+  button:hover:disabled {
+    background-color: #222;
+    color: #7fffd4;
   }
 
   `
