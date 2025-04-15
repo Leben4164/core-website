@@ -1,0 +1,16 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 50px;
+  background: #0a0a0a;
+  z-index: 9999;
+  transition: opacity 1s ease-in-out;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.overlay.hide {
+  opacity: 0;
+}

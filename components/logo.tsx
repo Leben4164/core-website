@@ -1,4 +1,3 @@
-// components/LogoAnimation.tsx (Next.js 컴포넌트)
 'use client';
 
 import { useEffect } from 'react';
@@ -7,19 +6,27 @@ import { animate, svg } from 'animejs';
 export default function Logo() {
 
   useEffect(() => {
-    const strokeAnimation = animate('.dot', {
-      ease: 'linear',
-      duration: 5000,
-      loop: false,
-      ...svg.createMotionPath('path')
-    });
+    const runAnimations = async () => {
+      await animate(svg.createDrawable('path'), {
+        draw: '0 1',
+        ease: 'linear',
+        duration: 4000,
+        loop: false,
+        fill: ['rgba(0,0,0,0)', '#7fffd4'],
+      }).then(() => {
+        return animate(
+          '#logo', {
+          translateX: -1000,
+          translateY: -200,
+          scale: 0,
+          ease: 'linear',
+          duration: 500,
+        })
+      })
 
-    animate(svg.createDrawable('path'), {
-      draw: '0 1',
-      ease: 'linear',
-      duration: 5000,
-      loop: false,
-    });
+    }
+
+    runAnimations()
   }, [])
 
 
@@ -31,8 +38,9 @@ export default function Logo() {
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
         viewBox="0 0 734 685"
+        id='logo'
       >
-        <title>core</title>
+        <title>core logo</title>
         <g stroke="none" fill="none" fillRule="evenodd">
           <path
             fill="transparent"
