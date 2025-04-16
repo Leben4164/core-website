@@ -46,28 +46,40 @@ export default function Form() { //지원서 페이지
       <p style={{ paddingBottom: '20px' }}> </p>
       <fieldset>
         <legend >지원서 양식</legend>
-        <label>학번</label>
-        <input
-          type="text"
-          placeholder="학번"
-          value={studentId}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setStudentId(event.target.value) }}
-        />
-        <label>이름</label>
-        <input
-          type="text"
-          placeholder="이름"
-          value={studentName}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setStudentName(event.target.value) }}
-        />
+        <div style={{ display: "flex", justifyContent: 'space-around', alignItems: 'center' }}>
+          <div>
+            <label>학번</label>
+            <input
+              className="smallInput"
+              type="text"
+              placeholder="학번"
+              value={studentId}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setStudentId(event.target.value) }}
+            />
+          </div>
+          <div>
+            <label>이름</label>
+            <input
+              className="smallInput"
+              type="text"
+              placeholder="이름"
+              value={studentName}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => { setStudentName(event.target.value) }}
+            />
+          </div>
+
+        </div>
+
         <label>지원 동기</label>
         <textarea
+          className="largeInput"
           placeholder="지원하게된 동기를 적어주세요."
           value={motiv}
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => { setMotiv(event.target.value) }}
         ></textarea>
         <label>하고싶은 활동</label>
         <textarea
+          className="largeInput"
           placeholder="만약 합격해서 동아리에 들어오게 된다면 가장 하고싶을 활동을 적어주세요."
           value={wantToDo}
           onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => { setWantToDo(event.target.value) }}
@@ -83,10 +95,11 @@ export default function Form() { //지원서 페이지
 const styles = `
   textarea {
     height: 100px;
+    resize: none;
   }
 
   #form {
-    background-color: #222; /* 배경과 구분되는 어두운 회색 */
+    background-color: #222;
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0px 0px 10px rgba(127, 255, 212, 0.5);
@@ -114,8 +127,18 @@ const styles = `
     font-weight: bold;
   }
 
-  input, textarea {
+  .largeInput {
     width: calc(100% - 10px);
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #7fffd4;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+  }
+
+  .smallInput {
+    width: 150px;
     padding: 8px;
     margin-top: 5px;
     border: 1px solid #7fffd4;
