@@ -89,7 +89,6 @@ export default function Logo() {
 
 
       </svg>
-      <div className='dot' style={{ transform: 'translateX(189px) translateY(4px)' }}></div>
     </div>
 
   );
